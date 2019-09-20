@@ -10,7 +10,7 @@ public class ConnectFour {
     Scanner in;
     
     public ConnectFour(){
-        buildEmptyBoard(6,7);
+        buildEmptyBoard(7,6);
         addPiece(3,'X');
         addPiece(3,'X');
         addPiece(4,'X');
