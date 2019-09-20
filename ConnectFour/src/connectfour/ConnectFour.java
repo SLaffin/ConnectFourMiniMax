@@ -58,17 +58,22 @@ public class ConnectFour {
         System.out.println();
         }        
     };
-
+    /**
+    * This method adds a piece to the lowest place in the selected column. Column-1 and count-1 used for zero based indexing.
+    */
     private void addPiece(int column, char piece){
         int count = 0;
-        while (count<board.length){
-            if ((board[count][column-1]!= 'X' 
-                || board[count][column-1]!= 'O')
-                    & count>board[1].length){
+        while (board[count][column-1]!= 'X' 
+                || board[count][column-1]!= 'O'){
                 count++;
             }
+        }        
+        // ERROR CHECKING
+        if (count == 0){
+            System.out.println("column full, please select a different column");
+        } else {
+            board[count-1][column-1] = piece;
         }
-        board[count][column-1] = piece;
     };
 
     private boolean checkWin(char player){
