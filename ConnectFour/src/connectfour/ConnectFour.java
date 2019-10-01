@@ -75,6 +75,7 @@ public class ConnectFour {
         }
     };
     
+    //UNTESTED
     private void humanPlayerTurn(char playerPiece){
         System.out.println("Please select a colum to place a piece.(1,2,3,etc.)");
         int columnSelected = in.nextInt();
@@ -98,14 +99,14 @@ public class ConnectFour {
         return in.nextInt();
     };
     
-
+    //UNTESTED
     private void scoreBoard(char playerPiece){
         int twos = 0;
         int threes = 0;
         int fours = 0;
         //score rows
         int consecCount = 0; //counting consecutive pieces in a row
-        for (int i=0; i<board.length; i++){
+        for (int i=0; i<board.length; i++){ //row-wise traversal
             for (int j=0; j<board[1].length; j++){  
                 if (board[i][j]==playerPiece){
                     consecCount++;
@@ -121,20 +122,125 @@ public class ConnectFour {
                     if (consecCount>=4){ 
                             System.out.println("Scored a four");
                             fours++;
-                            break;
                     }
                 } //else             
             } //j-for
         } // i-for
         //score columns
-        for (int i=0; i<board[1].length; i++){
+        for (int i=0; i<board[1].length; i++){ //column wise traversal
             for (int j=0; j<board.length; j++){  
                 
             }
         }
-        //score diagonals        
+        //score diagonals 
+        //UNTESTED
+        // 1 . down right, bottom half diagonal
+        int j = 0;
+        for (int i = 0; i<board[1].length; i++){ // iterate 'staring points'
+            int k= i; 
+            int l= j;//0
+            while( k < (board[1].length){ //down-right diagonal movement logic -CHECK LENGTH
+                if (board[k][l]==playerPiece){
+                    consecCount++;
+                } else {
+                    if (consecCount == 2){ 
+                            System.out.println("Scored a two");
+                            twos++;
+                    }
+                    if (consecCount == 3){ 
+                            System.out.println("Scored a three");
+                            threes++;
+                    }
+                    if (consecCount>=4){ 
+                            System.out.println("Scored a four");
+                            fours++;
+                    }
+                k++; // to move down right in diagonal
+                l++;
+                }//while there are more diagonals to check
+            }//for every starting point
+         //2. down right, top half
+         //repeating int creation for clarity
+         int i = 0;
+         for (int j= 1; j<(board.length-3);j++){ // iterate starting points
+             k = i;
+             l = j;
+             while( l < (board.length){ //down-right diagonal movement logic CHECK LENGTH
+                if (board[k][l]==playerPiece){ 
+                    consecCount++;
+                } else {
+                    if (consecCount == 2){ 
+                            System.out.println("Scored a two");
+                            twos++;
+                    }
+                    if (consecCount == 3){ 
+                            System.out.println("Scored a three");
+                            threes++;
+                    }
+                    if (consecCount>=4){ 
+                            System.out.println("Scored a four");
+                            fours++;
+                    }
+                k++; // to move down right in diagonal
+                l++;
+                } //else
+             } //while
+         } //for
+         // 3. bottom half down left diagonal
+         int i = 0;
+         for(int j = (board[1].length-1); j < (board[1].length-3); j++){  //iterate starting points
+            k = i;
+            l = j;
+            while(k < board[1].length){ // iterate diagonal
+                 if (board[k][l]==playerPiece){ 
+                    consecCount++;
+                } else {
+                    if (consecCount == 2){ 
+                            System.out.println("Scored a two");
+                            twos++;
+                    }
+                    if (consecCount == 3){ 
+                            System.out.println("Scored a three");
+                            threes++;
+                    }
+                    if (consecCount>=4){ 
+                            System.out.println("Scored a four");
+                            fours++;
+                    }   
+                 } //else
+                k++;
+                l--;
+            }//while
+         }//for
+         // 4. top half down left diagonal
+         int i = 0;
+         for(int j=(board.length-2); j==3; j--){ //weird loop idk if it works
+             k=i;
+             l=j;
+             while(l >= 0){
+                if (board[k][l]==playerPiece){ 
+                    consecCount++;
+                } else {
+                    if (consecCount == 2){ 
+                            System.out.println("Scored a two");
+                            twos++;
+                    }
+                    if (consecCount == 3){ 
+                            System.out.println("Scored a three");
+                            threes++;
+                    }
+                    if (consecCount>=4){ 
+                            System.out.println("Scored a four");
+                            fours++;
+                    }   
+                 } //else             
+                 k++;
+                 l--;
+             } //while
+             
     };
     
+    //  UNTESTED
     private void fillDebuggingBoard(){
         buildEmptyBoard();
         fillEmptyBoard();
