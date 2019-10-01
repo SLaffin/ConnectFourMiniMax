@@ -23,8 +23,7 @@ public class ConnectFour {
         while (board[count][column-1]!= 'X' 
                 || board[count][column-1]!= 'O'){
                 count++;
-            }
-            
+            }            
         // ERROR CHECKING
         if (count == 0){
             System.out.println("column full, please select a different column");
@@ -48,7 +47,7 @@ public class ConnectFour {
     /**
      * This method draws the current board to the console with labels for columns. 
      */
-    private void drawBoard(){
+    private void displayBoard(){
         //creating the numeric labels
         System.out.print(" ");
         for(int k=0; k<board[1].length; k++){
@@ -76,11 +75,18 @@ public class ConnectFour {
         }
     };
     
-    private void gameLoop(){
-        
-    }
+    private void humanPlayerTurn(char playerPiece){
+        System.out.println("Please select a colum to place a piece.(1,2,3,etc.)");
+        int columnSelected = in.nextInt();
+        addPiece(columnSlected, playerPiece);
+        displayBoard();
+    };
     
-    
+    private void aiPlayerTurn(char player piece){
+        // evaluate board w minimax to return column
+        //place piece
+        //displayBoard
+    };
     
     private int promptPlayer(){
         System.out.print("1. Play new game");
@@ -104,20 +110,19 @@ public class ConnectFour {
                 if (board[i][j]==playerPiece){
                     consecCount++;
                 } else {
-                    switch(consecCount){
-                        case 2: 
+                    if (consecCount == 2){ 
                             System.out.println("Scored a two");
                             twos++;
-                            break;
-                        case 3:
+                    }
+                    if (consecCount == 3){ 
                             System.out.println("Scored a three");
                             threes++;
-                            break;
-                        case 4:
+                    }
+                    if (consecCount>=4){ 
                             System.out.println("Scored a four");
                             fours++;
                             break;
-                    } //switchEnd
+                    }
                 } //else             
             } //j-for
         } // i-for
@@ -127,10 +132,49 @@ public class ConnectFour {
                 
             }
         }
-        //score diagonals
-        
+        //score diagonals        
     };
-
+    
+    private void fillDebuggingBoard(){
+        buildEmptyBoard();
+        fillEmptyBoard();
+        addPiece(2,'X');
+        addPiece(2,'X');
+        addPiece(2,'O');
+        addPiece(2,'X');
+        addPiece(2,'X');
+        addPiece(3,'X');
+        addPiece(3,'O');
+        addPiece(3,'O');
+        addPiece(4,'O');
+        addPiece(4,'X');
+        addPiece(4,'O');
+        addPiece(4,'X');
+        addPiece(5,'O');
+        addPiece(5,'O');
+        addPiece(5,'X');
+        addPiece(6,'O');
+        addPiece(6,'O');
+        addPiece(6,'O');
+        addPiece(6,'O');
+        addPiece(6,'O');
+        displayBoard();        
+    };
+    
+    private void randomFill(){
+        buildEmptyBoard();
+        fillEmptyBoard();
+        for (int i=0; i<board.length; i++){
+            for (int j=0; j<board[0].length; j++){
+                if ( java.lang.Math.random() < 5.0 ){
+                    addPiece(i,'X');
+                } else{ 
+                    addPiece(i,'O');
+                }
+            }
+        }
+        displayBoard();
+    };
     
     
     private void startIntroduction(){
