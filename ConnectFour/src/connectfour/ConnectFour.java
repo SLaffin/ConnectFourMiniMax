@@ -7,16 +7,31 @@ import java.util.Scanner;
  */
 public class ConnectFour {
     private char[][] board;
+    private int numPlayers;
     Scanner in;
     
     public ConnectFour(){
-        buildEmptyBoard(7,6);
-        addPiece(3,'X');
-        addPiece(3,'X');
-        addPiece(4,'X');
-        drawBoard();
+        in = new Scanner(System.in);
+        startIntroduction();
     };
-
+    
+    /**
+    * This method adds a piece to the lowest place in the selected column. Column-1 and count-1 used for zero based indexing.
+    */
+    private void addPiece(int column, char piece){
+        int count = 0;
+        while (board[count][column-1]!= 'X' 
+                || board[count][column-1]!= 'O'){
+                count++;
+            }
+            
+        // ERROR CHECKING
+        if (count == 0){
+            System.out.println("column full, please select a different column");
+        } else {
+            board[count-1][column-1] = piece;
+        }
+    };
     
     /**
      * This method builds an empty char array board and fills each element with a space character.
@@ -28,16 +43,7 @@ public class ConnectFour {
         fillEmptyBoard();
     };
     
-    /**
-     * This method fills every element in the board array with a space char.
-     */   
-    private void fillEmptyBoard(){
-        for (int i=0; i<board.length; i++){
-            for (int j=0; j<board[1].length; j++){ 
-                board[i][j] = ' ';
-            }
-        }
-    };
+   
     
     /**
      * This method draws the current board to the console with labels for columns. 
@@ -58,32 +64,26 @@ public class ConnectFour {
         System.out.println();
         }        
     };
-    /**
-    * This method adds a piece to the lowest place in the selected column. Column-1 and count-1 used for zero based indexing.
-    */
-    private void addPiece(int column, char piece){
-        int count = 0;
-        while (board[count][column-1]!= 'X' 
-                || board[count][column-1]!= 'O'){
-                count++;
+    
+     /**
+     * This method fills every element in the board array with a space char.
+     */   
+    private void fillEmptyBoard(){
+        for (int i=0; i<board.length; i++){
+            for (int j=0; j<board[1].length; j++){ 
+                board[i][j] = ' ';
             }
-        }        
-        // ERROR CHECKING
-        if (count == 0){
-            System.out.println("column full, please select a different column");
-        } else {
-            board[count-1][column-1] = piece;
         }
     };
-
-    private boolean checkWin(char player){
-
     
-        return false;
-    };
-
+    private void gameLoop(){
+        
+    }
+    
+    
+    
     private int promptPlayer(){
-        System.out.print("1. Look at your surroundings.");
+        System.out.print("1. Play new game");
         System.out.print("\t2. Select a Move Decision.");
         System.out.print("\t3. ");
         System.out.println("\t4. ");
@@ -91,6 +91,82 @@ public class ConnectFour {
         System.out.println("\t0. Quit");
         return in.nextInt();
     };
+    
+
+    private void scoreBoard(char playerPiece){
+        int twos = 0;
+        int threes = 0;
+        int fours = 0;
+        //score rows
+        int consecCount = 0; //counting consecutive pieces in a row
+        for (int i=0; i<board.length; i++){
+            for (int j=0; j<board[1].length; j++){  
+                if (board[i][j]==playerPiece){
+                    consecCount++;
+                } else {
+                    switch(consecCount){
+                        case 2: 
+                            System.out.println("Scored a two");
+                            twos++;
+                            break;
+                        case 3:
+                            System.out.println("Scored a three");
+                            threes++;
+                            break;
+                        case 4:
+                            System.out.println("Scored a four");
+                            fours++;
+                            break;
+                    } //switchEnd
+                } //else             
+            } //j-for
+        } // i-for
+        //score columns
+        for (int i=0; i<board[1].length; i++){
+            for (int j=0; j<board.length; j++){  
+                
+            }
+        }
+        //score diagonals
+        
+    };
+
+    
+    
+    private void startIntroduction(){
+        System.out.println("Let's play Connect Four!");
+        System.out.println("Please Select the number of human players(0,1, or 2)");
+        int response = in.nextInt();
+        while (response != 0 && response != 1 && response != 2 ){
+            System.out.println("Sorry, that is not valid, please select 0,1, or 2.");
+            response = in.nextInt();
+        }
+        numPlayers = response;
+        System.out.println(response+" human players slected!");
+        System.out.println("Would you like the standard size(1)  or custom sized(2) board?");
+        int choice = in.nextInt();
+        switch(choice){
+            case 1:
+                buildEmptyBoard(6,7);
+                System.out.println("Standard board created.");
+                drawBoard();                                                //TESTING
+                break;
+            case 2:
+                System.out.println("How many rows would you like?");
+                int customRow = in.nextInt();
+                System.out.println("How many columns would you like?");
+                int customColumn = in.nextInt();
+                buildEmptyBoard(customRow, customColumn);
+                System.out.println("Custom Board Created.");
+                drawBoard();                                                //TESTING
+                break;
+            default:
+                System.out.println("Sorry, that is not valid.");
+                System.out.println("Please select 1 for a standard board, or 2 for a custom board.");
+        }       
+        System.out.println("Lets start the game!");
+        
+    }   
 
     public static void main(String[] args){ConnectFour f = new ConnectFour();}
 }
